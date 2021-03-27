@@ -14,7 +14,6 @@ const EditForm = ({navigation, route}) => {
   const [name, setName] = useState('');
   const [regdNo, setRegdNo] = useState(null);
   const [college, setCollege] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const {full_name} = route.params;
   const {registration_no} = route.params;
@@ -44,10 +43,10 @@ const EditForm = ({navigation, route}) => {
         redirect: 'follow',
       };
 
-      fetch('http://2fa6a3337d7d.ngrok.io/edit.php', requestOptions)
+      fetch('http://a848b36f2553.ngrok.io/edit.php', requestOptions)
         .then(response => response.text())
         .then(() => Alert.alert('Profile Updated Successfully'))
-        .then(() => navigation.navigate('Home'))
+        .then(() => navigation.navigate('Data'))
         .catch(error => Alert.alert('error', error));
     }
   };
@@ -105,7 +104,6 @@ const EditForm = ({navigation, route}) => {
             }}
             onPress={insertData}
           />
-          
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -18,7 +18,7 @@ const AppNavigator = () => {
         headerStyle: {
           backgroundColor: '#fff',
         },
-        headerTintColor: '#2A118F',
+        headerTintColor: '#1687a7',
         headerTitleStyle: {
           fontWeight: 'bold',
         },

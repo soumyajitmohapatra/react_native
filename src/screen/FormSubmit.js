@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, Text, View, Button, Alert} from 'react-native';
 
 import CARD from '../components/Card';
@@ -8,6 +8,7 @@ const FormSubmit = ({route, navigation}) => {
   const {registration_no} = route.params;
   const {college_name} = route.params;
   const {id} = route.params;
+  const [loading, setLoading] = useState(false);
 
   const deleteUser = () => {
     let formdata = new FormData();
@@ -19,13 +20,14 @@ const FormSubmit = ({route, navigation}) => {
       body: formdata,
     };
 
-    fetch('http://2fa6a3337d7d.ngrok.io/delete.php', requestOptions)
+    fetch('http://a848b36f2553.ngrok.io/delete.php', requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .then(() => Alert.alert('User profile delete successfull'))
       .then(() => navigation.navigate('Home'))
       .catch(error => console.log('error', error));
   };
+
 
   return (
     <View>
