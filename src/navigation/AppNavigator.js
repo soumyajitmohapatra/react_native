@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 /// Screen
 import HomeScreen from '../screen/HomeScreen';
-import FormSubmit from '../screen/FormSubmit';
+import UserCard from '../screen/UserCard';
 import StudentList from '../screen/StudentList';
 import EditForm from '../screen/EditForm';
 
@@ -31,7 +31,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name="Data"
         options={{title: 'User'}}
-        component={FormSubmit}
+        component={UserCard}
       />
       <Stack.Screen
         name="student"

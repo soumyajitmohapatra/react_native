@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Button, Alert} from 'react-native';
 
 import CARD from '../components/Card';
 
-const FormSubmit = ({route, navigation}) => {
+const UserCard = ({route, navigation}) => {
   const {full_name} = route.params;
   const {registration_no} = route.params;
   const {college_name} = route.params;
@@ -66,6 +66,6 @@ const FormSubmit = ({route, navigation}) => {
   );
 };
 
-export default FormSubmit;
+export default UserCard;
 
 const styles = StyleSheet.create({});
