@@ -20,7 +20,7 @@ const FormSubmit = ({route, navigation}) => {
       body: formdata,
     };
 
-    fetch('http://a848b36f2553.ngrok.io/delete.php', requestOptions)
+    fetch('/delete.php', requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .then(() => Alert.alert('User profile delete successfull'))

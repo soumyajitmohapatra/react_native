@@ -25,7 +25,7 @@ const StudentList = ({navigation}) => {
         method: 'GET',
         redirect: 'follow',
       };
-      fetch('http://a848b36f2553.ngrok.io/read.php', requestOptions)
+      fetch('/read.php', requestOptions)
         .then(res => res.json())
         .then(result => setData(result));
     }

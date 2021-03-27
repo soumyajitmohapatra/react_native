@@ -45,7 +45,7 @@ const HomeScreen = ({navigation}) => {
         redirect: 'follow',
       };
 
-      fetch('http://a848b36f2553.ngrok.io/insert.php', requestOptions)
+      fetch('/insert.php', requestOptions)
         .then(response => response.text())
         .then(() => Alert.alert('Registered Successfully'))
         .then(() => {

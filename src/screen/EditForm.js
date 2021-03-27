@@ -43,7 +43,7 @@ const EditForm = ({navigation, route}) => {
         redirect: 'follow',
       };
 
-      fetch('http://a848b36f2553.ngrok.io/edit.php', requestOptions)
+      fetch('/edit.php', requestOptions)
         .then(response => response.text())
         .then(() => Alert.alert('Profile Updated Successfully'))
         .then(() => navigation.navigate('Data'))
