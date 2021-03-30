@@ -9,11 +9,14 @@ import {
 } from 'react-native';
 
 import {Button, Input} from 'react-native-elements';
+import ModalView from '../components/Modal';
 
 const EditForm = ({navigation, route}) => {
   const [name, setName] = useState('');
   const [regdNo, setRegdNo] = useState(null);
   const [college, setCollege] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const {full_name} = route.params;
   const {registration_no} = route.params;
@@ -43,10 +46,10 @@ const EditForm = ({navigation, route}) => {
         redirect: 'follow',
       };
 
-      fetch('/edit.php', requestOptions)
+      fetch('http://0ec77bda2f7b.ngrok.io/edit.php', requestOptions)
         .then(response => response.text())
-        .then(() => Alert.alert('Profile Updated Successfully'))
-        .then(() => navigation.navigate('Data'))
+        .then(() => navigation.navigate('home'))
+        .then(() => setModalVisible(!isModalVisible))
         .catch(error => Alert.alert('error', error));
     }
   };
@@ -68,7 +71,7 @@ const EditForm = ({navigation, route}) => {
               inputContainerStyle={{width: '100%'}}
               inputStyle={{width: '100%'}}
               defaultValue={name}
-              maxLength={15}
+              maxLength={20}
               onChangeText={n => setName(n)}
             />
             <Input
@@ -89,7 +92,7 @@ const EditForm = ({navigation, route}) => {
               inputContainerStyle={{width: '100%'}}
               inputStyle={{width: '100%'}}
               defaultValue={college}
-              maxLength={15}
+              maxLength={20}
               onChangeText={c => setCollege(c)}
             />
           </View>
@@ -100,10 +103,17 @@ const EditForm = ({navigation, route}) => {
             buttonStyle={{
               width: '100%',
               borderRadius: 10,
-              backgroundColor: '#2A118F',
+              // backgroundColor: '#2A118F',
             }}
             onPress={insertData}
           />
+          {/* <View style={{backgroundColor: 'red', position: 'absolute'}}> */}
+            <ModalView
+              isVisible={isModalVisible}
+              onBackdropPress={() => setModalVisible(false)}
+              message="Updated successfully"
+            />
+          {/* </View> */}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

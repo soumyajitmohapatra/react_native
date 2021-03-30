@@ -24,7 +24,7 @@ const AppNavigator = () => {
         },
       }}>
       <Stack.Screen
-        name="Home"
+        name="home"
         options={{title: 'Home'}}
         component={HomeScreen}
       />

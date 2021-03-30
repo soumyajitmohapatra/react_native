@@ -9,12 +9,20 @@ import {
 } from 'react-native';
 
 import {Button, Input} from 'react-native-elements';
+import ModalView from '../components/Modal';
 
 const HomeScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [regdNo, setRegdNo] = useState(null);
   const [college, setCollege] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [msg, setMsg] = useState('');
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -31,8 +39,10 @@ const HomeScreen = ({navigation}) => {
 
   const insertData = () => {
     if (!name || !regdNo || !college) {
-      Alert.alert('Required field is missing');
+      setMsg('Required field missing');
+      setModalVisible(!isModalVisible);
     } else {
+      setMsg('User profile added successfully');
       setTimeout(() => setLoading(true), 1000);
       let formdata = new FormData();
       formdata.append('full_name', name);
@@ -45,15 +55,15 @@ const HomeScreen = ({navigation}) => {
         redirect: 'follow',
       };
 
-      fetch('/insert.php', requestOptions)
+      fetch('http://0ec77bda2f7b.ngrok.io/insert.php', requestOptions)
         .then(response => response.text())
-        .then(() => Alert.alert('Registered Successfully'))
         .then(() => {
           setName('');
           setCollege('');
           setRegdNo(null);
           setLoading(false);
         })
+        .then(() => setModalVisible(!isModalVisible))
         .catch(error => Alert.alert('error', error));
     }
   };
@@ -73,7 +83,7 @@ const HomeScreen = ({navigation}) => {
           inputContainerStyle={{width: '100%'}}
           inputStyle={{width: '100%'}}
           defaultValue={name}
-          maxLength={15}
+          maxLength={20}
           onChangeText={n => setName(n)}
         />
         <Input
@@ -94,7 +104,7 @@ const HomeScreen = ({navigation}) => {
           inputContainerStyle={{width: '100%'}}
           inputStyle={{width: '100%'}}
           defaultValue={college}
-          maxLength={15}
+          maxLength={20}
           onChangeText={c => setCollege(c)}
         />
       </View>
@@ -104,8 +114,16 @@ const HomeScreen = ({navigation}) => {
         containerStyle={{width: 400}}
         buttonStyle={{
           width: '100%',
-          borderRadius: 10,
-          backgroundColor: '#2A118F',
+          borderRadius: 15,
+          // backgroundColor: '#2A118F',
+          shadowRadius: 20,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 100,
+            height: 100,
+          },
+          shadowOpacity: 10,
+          elevation: 210,
         }}
         onPress={insertData}
       />
@@ -118,6 +136,13 @@ const HomeScreen = ({navigation}) => {
         }}
         onPress={() => navigation.navigate('student')}
       />
+      {/* <View style={{backgroundColor: 'red', position: 'absolute'}}> */}
+        <ModalView
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
+          message={msg}
+        />
+      {/* </View> */}
     </View>
   );
 };
@@ -128,11 +153,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#f6f5f5',
     height: '100%',
   },
   title: {
-    marginTop: 40,
+    marginTop: 20,
   },
   form_wrapper: {
     width: '98%',

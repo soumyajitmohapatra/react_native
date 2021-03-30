@@ -2,11 +2,11 @@ import React, {Children, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Card, Avatar, Button, Icon} from 'react-native-elements';
 
-const CARD = ({title, rNumber, cName, children, child}) => {
+const CARD = ({title, rNumber, cName, deleteFun, editFun}) => {
   return (
-    <View>
-      <Card>
-        <Card.Title>User's Profile: {title}</Card.Title>
+    <View style={{height: '100%', top: 40}}>
+      <Card containerStyle={{flex: 0.5, borderRadius: 30}}>
+        <Card.Title>{title}</Card.Title>
         <Card.Divider />
         <View
           style={{
@@ -17,7 +17,11 @@ const CARD = ({title, rNumber, cName, children, child}) => {
             rounded
             size="xlarge"
             title={title.substring(0, 2)}
-            titleStyle={{color: '#1B1B1B', fontSize: 60}}
+            titleStyle={{
+              color: '#1B1B1B',
+              fontSize: 60,
+              textTransform: 'uppercase',
+            }}
             avatarStyle={{backgroundColor: 'rgba(0,0,0,0.2)'}}
             activeOpacity={0.7}
           />
@@ -26,16 +30,37 @@ const CARD = ({title, rNumber, cName, children, child}) => {
               Name: <Text style={styles.innerText}>{title}</Text>
             </Text>
             <Text style={styles.baseText}>
-              Registration Number:{' '}
-              <Text style={styles.innerText}>{rNumber}</Text>
+              Registration Number:
+              <Text style={styles.innerText}> {rNumber}</Text>
             </Text>
             <Text style={styles.baseText}>
               College Name: <Text style={styles.innerText}>{cName}</Text>
             </Text>
           </View>
         </View>
-        <View>{children}</View>
-        <View>{child}</View>
+        <View style={{flexDirection: 'row', marginTop: 30}}>
+          <Button
+            onPress={editFun}
+            title="Edit"
+            color="#841584"
+            containerStyle={{flex: 0.5}}
+            buttonStyle={{
+              borderRadius: 15,
+            }}
+            accessibilityLabel="Edit"
+          />
+          <Button
+            onPress={deleteFun}
+            title="Delete"
+            color="#841584"
+            containerStyle={{flex: 0.5, marginLeft: 5}}
+            buttonStyle={{
+              backgroundColor: '#eb4034',
+              borderRadius: 15,
+            }}
+            accessibilityLabel="Delete"
+          />
+        </View>
       </Card>
     </View>
   );
@@ -46,9 +71,11 @@ export default CARD;
 const styles = StyleSheet.create({
   baseText: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 22,
   },
   innerText: {
     color: 'red',
+    fontSize: 18,
+    textTransform: 'capitalize',
   },
 });

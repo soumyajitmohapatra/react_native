@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
+import {ImageBackground} from 'react-native';
 import {StyleSheet, Text, View, Button, Alert} from 'react-native';
 
 import CARD from '../components/Card';
+import ModalView from '../components/Modal';
 
 const UserCard = ({route, navigation}) => {
+  const image = {
+    uri:
+      'https://www.wallpapertip.com/wmimgs/81-816611_iphone-new-wallpaper-hd-2019.jpg',
+  };
   const {full_name} = route.params;
   const {registration_no} = route.params;
   const {college_name} = route.params;
   const {id} = route.params;
-  const [loading, setLoading] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const deleteUser = () => {
     let formdata = new FormData();
@@ -20,48 +26,42 @@ const UserCard = ({route, navigation}) => {
       body: formdata,
     };
 
-    fetch('/delete.php', requestOptions)
+    fetch('http://0ec77bda2f7b.ngrok.io/delete.php', requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
-      .then(() => Alert.alert('User profile delete successfull'))
-      .then(() => navigation.navigate('Home'))
+      .then(() => navigation.navigate('home'))
+      .then(() => setModalVisible(!isModalVisible))
       .catch(error => console.log('error', error));
   };
 
-
   return (
-    <View>
-      <CARD
-        key={id}
-        title={full_name}
-        cName={college_name}
-        rNumber={registration_no}>
-        <Button
-          containerStyle={{width: 400, marginButton: 20}}
-          buttonStyle={{
-            borderRadius: 50,
-            backgroundColor: '#2A118F',
-          }}
+    <View style={{flex: 1}}>
+      <ImageBackground
+        source={image}
+        blurRadius={40}
+        style={{flex: 1, resizeMode: 'cover', justifyContent: 'center'}}>
+        <CARD
           key={id}
-          title="Edit"
-          onPress={() =>
+          title={full_name}
+          cName={college_name}
+          rNumber={registration_no}
+          deleteFun={deleteUser}
+          editFun={() =>
             navigation.navigate('edit', {
               full_name,
               registration_no,
               college_name,
               id,
             })
-          }
-        />
-        <Button
-          title="delete"
-          buttonStyle={{
-            width: '100%',
-            borderRadius: 10,
-          }}
-          onPress={deleteUser}
-        />
-      </CARD>
+          }></CARD>
+        {/* <View style={{backgroundColor: 'red', position: 'absolute'}}> */}
+          <ModalView
+            isVisible={isModalVisible}
+            onBackdropPress={() => setModalVisible(false)}
+            message="User profile deleted successfully"
+          />
+        {/* </View> */}
+      </ImageBackground>
     </View>
   );
 };
