@@ -17,6 +17,7 @@ const EditForm = ({navigation, route}) => {
   const [college, setCollege] = useState('');
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [msg, setMsg] = useState('');
 
   const {full_name} = route.params;
   const {registration_no} = route.params;
@@ -31,8 +32,10 @@ const EditForm = ({navigation, route}) => {
 
   const insertData = () => {
     if (!name || !regdNo || !college) {
-      Alert.alert('Required field is missing');
+      setMsg('Required field missing');
+      setModalVisible(!isModalVisible);
     } else {
+      setMsg('Update successful');
       setTimeout(() => setLoading(true), 1000);
       let formdata = new FormData();
       formdata.append('full_name', name);
@@ -46,10 +49,10 @@ const EditForm = ({navigation, route}) => {
         redirect: 'follow',
       };
 
-      fetch('http://0ec77bda2f7b.ngrok.io/edit.php', requestOptions)
+      fetch('http://872a4267cd3c.ngrok.io /edit.php', requestOptions)
         .then(response => response.text())
-        .then(() => navigation.navigate('home'))
         .then(() => setModalVisible(!isModalVisible))
+        .then(() => navigation.navigate('home'))
         .catch(error => Alert.alert('error', error));
     }
   };
@@ -107,13 +110,11 @@ const EditForm = ({navigation, route}) => {
             }}
             onPress={insertData}
           />
-          {/* <View style={{backgroundColor: 'red', position: 'absolute'}}> */}
-            <ModalView
-              isVisible={isModalVisible}
-              onBackdropPress={() => setModalVisible(false)}
-              message="Updated successfully"
-            />
-          {/* </View> */}
+          <ModalView
+            isVisible={isModalVisible}
+            onBackdropPress={() => setModalVisible(false)}
+            message={msg}
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

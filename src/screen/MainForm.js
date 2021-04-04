@@ -11,7 +11,7 @@ import {
 import {Button, Input} from 'react-native-elements';
 import ModalView from '../components/Modal';
 
-const HomeScreen = ({navigation}) => {
+const MainForm = ({navigation}) => {
   const [name, setName] = useState('');
   const [regdNo, setRegdNo] = useState(null);
   const [college, setCollege] = useState('');
@@ -20,9 +20,9 @@ const HomeScreen = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [msg, setMsg] = useState('');
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
+  // const toggleModal = () => {
+  //   setModalVisible(!isModalVisible);
+  // };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -31,7 +31,6 @@ const HomeScreen = ({navigation}) => {
       setLoading(false);
       setCollege('');
     });
-
     return () => {
       unsubscribe;
     };
@@ -55,7 +54,7 @@ const HomeScreen = ({navigation}) => {
         redirect: 'follow',
       };
 
-      fetch('http://0ec77bda2f7b.ngrok.io/insert.php', requestOptions)
+      fetch('http://71f5335ef15e.ngrok.io/insert.php', requestOptions)
         .then(response => response.text())
         .then(() => {
           setName('');
@@ -134,20 +133,18 @@ const HomeScreen = ({navigation}) => {
         buttonStyle={{
           marginTop: 20,
         }}
-        onPress={() => navigation.navigate('student')}
+        onPress={() => navigation.navigate('studentList')}
       />
-      {/* <View style={{backgroundColor: 'red', position: 'absolute'}}> */}
-        <ModalView
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-          message={msg}
-        />
-      {/* </View> */}
+      <ModalView
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+        message={msg}
+      />
     </View>
   );
 };
 
-export default HomeScreen;
+export default MainForm;
 
 const styles = StyleSheet.create({
   container: {

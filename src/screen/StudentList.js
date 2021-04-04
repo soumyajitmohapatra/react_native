@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {Avatar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import image from '../Asset/background.jpg';
 
 const StudentList = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -24,17 +25,12 @@ const StudentList = ({navigation}) => {
         method: 'GET',
         redirect: 'follow',
       };
-      fetch('http://0ec77bda2f7b.ngrok.io/read.php', requestOptions)
+      fetch('http://71f5335ef15e.ngrok.io/read.php', requestOptions)
         .then(res => res.json())
         .then(result => setData(result));
     }
     fetchData();
   }, []);
-
-  const image = {
-    uri:
-      'https://www.wallpapertip.com/wmimgs/81-816611_iphone-new-wallpaper-hd-2019.jpg',
-  };
 
   const spacing = 20;
   const ItemSize = 70 + spacing * 3;
@@ -95,10 +91,9 @@ const StudentList = ({navigation}) => {
                     //   inputRange,
                     //   outputRange: [1, 1, 1, 0],
                     // });
-
                     return (
                       <TouchableHighlight
-                        onPress={() => navigation.navigate('Data', item)}
+                        onPress={() => navigation.navigate('userCard', item)}
                         activeOpacity={0.8}
                         underlayColor="transparent"
                         containerStyle={{backgroundColor: 'transparent'}}>
@@ -191,7 +186,7 @@ const StudentList = ({navigation}) => {
                                 name="arrow-circle-right"
                                 backgroundColor="transparent"
                                 onPress={() =>
-                                  navigation.navigate('Data', item)
+                                  navigation.navigate('userCard', item)
                                 }></Icon.Button>
                             </View>
                           </View>

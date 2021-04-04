@@ -4,10 +4,11 @@ import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 /// Screen
-import HomeScreen from '../screen/HomeScreen';
+import MainForm from '../screen/MainForm';
 import UserCard from '../screen/UserCard';
 import StudentList from '../screen/StudentList';
 import EditForm from '../screen/EditForm';
+import Home from '../screen/Home';
 
 const Stack = createStackNavigator();
 
@@ -25,22 +26,31 @@ const AppNavigator = () => {
       }}>
       <Stack.Screen
         name="home"
-        options={{title: 'Home'}}
-        component={HomeScreen}
+        options={{
+          headerTransparent: true,
+          title: '',
+          headerStyle: {},
+        }}
+        component={Home}
       />
       <Stack.Screen
-        name="Data"
+        name="form"
+        options={{title: 'Form'}}
+        component={MainForm}
+      />
+      <Stack.Screen
+        name="userCard"
         options={{title: 'User'}}
         component={UserCard}
       />
       <Stack.Screen
-        name="student"
+        name="studentList"
         options={{title: 'Table'}}
         component={StudentList}
       />
       <Stack.Screen
-        name="edit"
-        options={{title: 'edit'}}
+        name="editForm"
+        options={{title: 'Edit'}}
         component={EditForm}
       />
     </Stack.Navigator>

@@ -4,8 +4,8 @@ import {Card, Avatar, Button, Icon} from 'react-native-elements';
 
 const CARD = ({title, rNumber, cName, deleteFun, editFun}) => {
   return (
-    <View style={{height: '100%', top: 40}}>
-      <Card containerStyle={{flex: 0.5, borderRadius: 30}}>
+    <View style={{flex: 1, top: 10}}>
+      <Card containerStyle={{ borderRadius: 30}}>
         <Card.Title>{title}</Card.Title>
         <Card.Divider />
         <View
@@ -38,7 +38,7 @@ const CARD = ({title, rNumber, cName, deleteFun, editFun}) => {
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', marginTop: 30}}>
+        <View style={{flexDirection: 'row', marginTop: 20}}>
           <Button
             onPress={editFun}
             title="Edit"
