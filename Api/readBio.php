@@ -9,8 +9,16 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
 
-$readQuery = "SELECT id, full_name, college_name, registration_no FROM students_details";
 
+$registration_no = $_POST['registration_no'];
+
+$readQuery = "SELECT s.id,s.full_name, s.college_name, s.registration_no, 
+b.id, b.fName, b.mName, b.age, b.registration_no
+FROM students_details s
+INNER JOIN bio b
+ON s.registration_no = b.registration_no
+WHERE s.registration_no = '$registration_no'
+ORDER BY s.registration_no ";
 
 
 
